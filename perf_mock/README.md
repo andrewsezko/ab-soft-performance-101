@@ -89,7 +89,7 @@ Quick look to container output:
 docker logs $docker_container_name
 ```
 
-######Note:
+###### Note:
 >Other useful Docker commands could be found in official [docs](https://docs.docker.com/engine/reference/commandline/cli/)
 
 All services could be run without Docker. 
