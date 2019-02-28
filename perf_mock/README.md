@@ -8,9 +8,9 @@
 ## Description
 This project is a set of simple services, which partially represent common logic elements of e-commerce systems.
 It contains 3 Dockerized python apps:
-- Authentication service
-- Product service
-- Cart service
+- [Authentication service](#authentication-service)
+- [Product service](#product-service)
+- [Cart service](#cart-service)
 
 All servers config could be managed through docker-compose.yml file in the project root (See ENVIRONMENT VARIABLES)
 
