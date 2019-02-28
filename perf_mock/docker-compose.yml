@@ -1,0 +1,51 @@
+version: '3.5'
+services:
+  auth-service:
+    build:
+      context: ./auth_service
+      dockerfile: Dockerfile
+    hostname: "auth-service"
+    environment:
+      - AUTH_SERVER_HOST=auth-service
+      - AUTH_SERVER_PORT=7778
+      - SLOWDOWN_SERVICE_MS_MIN=50
+      - SLOWDOWN_SERVICE_MS_MAX=500
+    ports:
+      - "7778:7778"
+
+  product-service:
+    build:
+      context: ./product_service
+      dockerfile: Dockerfile
+    hostname: "product-service"
+    environment:
+      - PRODUCT_SERVER_HOST=product-service
+      - PRODUCT_SERVER_PORT=7777
+      - AUTH_SERVER_HOST=auth-service
+      - AUTH_SERVER_PORT=7778
+      - SLOWDOWN_SERVICE_MS_MIN=50
+      - SLOWDOWN_SERVICE_MS_MAX=500
+    ports:
+      - "7777:7777"
+    links:
+      - auth-service
+
+  cart-service:
+    build:
+      context: ./cart_service
+      dockerfile: Dockerfile
+    hostname: "cart-service"
+    environment:
+      - CART_SERVER_HOST=cart-service
+      - CART_SERVER_PORT=7779
+      - AUTH_SERVER_HOST=auth-service
+      - AUTH_SERVER_PORT=7778
+      - PRODUCT_SERVER_HOST=product-service
+      - PRODUCT_SERVER_PORT=7777
+      - SLOWDOWN_SERVICE_MS_MIN=50
+      - SLOWDOWN_SERVICE_MS_MAX=500
+    ports:
+      - "7779:7779"
+    links:
+      - auth-service
+      - product-service
